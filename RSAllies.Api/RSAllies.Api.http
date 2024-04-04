@@ -1,0 +1,6 @@
+@RSAllies.Api_HostAddress = http://localhost:5278
+
+GET {{RSAllies.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
