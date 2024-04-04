@@ -15,7 +15,7 @@ namespace RSAllies.Api.Features.Users
             public Guid Id { get; set; }
         }
 
-        internal class Handler(AppDbContext _context) : IRequestHandler<Query, Result<UserDTO>>
+        internal sealed class Handler(AppDbContext _context) : IRequestHandler<Query, Result<UserDTO>>
         {
             public async Task<Result<UserDTO>> Handle(Query request, CancellationToken cancellationToken)
             {
