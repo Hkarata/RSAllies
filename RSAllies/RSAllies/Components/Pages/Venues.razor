@@ -1,0 +1,44 @@
+﻿@page "/venues"
+
+<PageTitle>Venues</PageTitle>
+
+<div class="div-card">
+    
+    <div class="div-card-part1">
+        <p style="font-family: FesterHeavy;font-size: 30px">Test Centers</p>
+        <p style="font-family: FesterHeavy; font-size: 30px;">Across All Regions in Tanzania</p>
+        <br/>
+        <p style="font-family: 'Segoe Print';color:#FF6653;font-weight:600;">Our test centers are equipped with the latest technology and are designed to provide a conducive environment for our candidates to take their exams.</p>
+        <br />
+        <FluentStack Orientation="Orientation.Horizontal">
+            <FluentAnchor Href="venues/add-venue">Add Venue</FluentAnchor>
+            <FluentAnchor Href="">Sessions</FluentAnchor>
+        </FluentStack>
+    </div>
+
+    <img src="/Images/centre.jpg" style="border-radius:8px;"/>
+
+</div>
+
+<div class="second-card">
+    <FluentCard Width="80%" Height="100px">
+        <h4>Region</h4>
+        <FluentCombobox AriaLabel="Pre-selected option" Items="@Names" @bind-Value="@name" Width="100%"/>
+    </FluentCard>
+</div>
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10" Style="margin-top:20px">
+    <FluentCard></FluentCard>
+    <FluentCard></FluentCard>
+    <FluentCard></FluentCard>
+    <FluentCard></FluentCard>
+</FluentStack>
+
+
+@code {
+
+    string name = "All";
+
+    List<string> Names = new List<string> { "Option 1", "Option 2", "Option 3" };
+
+}

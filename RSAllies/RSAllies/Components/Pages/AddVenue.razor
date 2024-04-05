@@ -1,0 +1,60 @@
+﻿@page "/venues/add-venue"
+@rendermode InteractiveServer
+
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Create Venue</PageTitle>
+
+@* <FluentBreadcrumb>
+    <FluentBreadcrumbItem Href="#">
+        Breadcrumb item 1
+        <FluentIcon Value="@(new Icons.Regular.Size16.Home())" Color="@Color.Neutral" Slot="end" />
+    </FluentBreadcrumbItem>
+    <FluentBreadcrumbItem Href="#">
+        Breadcrumb item 2
+        <FluentIcon Value="@(new Icons.Regular.Size16.Clipboard())" Color="@Color.Neutral" Slot="end" />
+    </FluentBreadcrumbItem>
+    <FluentBreadcrumbItem>
+        Breadcrumb item 3
+        <FluentIcon Value="@(new Icons.Regular.Size16.Money())" Color="@Color.Neutral" Slot="end" />
+    </FluentBreadcrumbItem>
+</FluentBreadcrumb> *@
+<br/>
+<div style="display:flex;flex-direction:column;justify-content:center; align-items:center;width:100%;">
+    <p style="font-family: 'Segoe Print',serif;color:#FF6653;font-weight:600;font-size:18px">Let's create a venue, its location as well as its capacity.</p>
+
+    <FluentCard Width="500px">
+        <EditForm Model="Input" method="post" OnValidSubmit="Submit" FormName="CreateVenue">
+            <DataAnnotationsValidator />
+            <FluentTextField Label="Name" @bind-Value="Input.Name" Placeholder="Enter the name of the venue" Style="width:100%" />
+            <FluentTextField Label="Address" @bind-Value="Input.Address" Placeholder="Enter the address of the venue" Style="width:100%" />
+            <FluentNumberField Label="Capacity" @bind-Value="Input.Capacity" Placeholder="Enter the capacity of the venue" Style="width:100%" />
+            <FluentButton BackgroundColor="#ee3026" Type="ButtonType.Submit" Style="width:100%">Create Venue</FluentButton>
+        </EditForm>
+    </FluentCard>
+</div>
+
+
+@code {
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    private sealed class InputModel
+    {
+        [Required, MaxLength(50)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, MaxLength(50)]
+        public string Address { get; set; } = string.Empty;
+
+        [Required]
+        [Range(10, 1000, ErrorMessage = "Value must be between 10 and 1000")]
+        public int Capacity { get; set; }
+    }
+
+    void Submit()
+    {
+        // Call the API to create the venue
+    }
+}
+

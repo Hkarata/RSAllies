@@ -21,7 +21,7 @@ body {
 .body-content {
     align-self: stretch;
     height: unset !important;
-    display: flex;
+/*    display: flex;*/
 }
 
 .content {
@@ -185,4 +185,14 @@ code {
         height: 20px;
         border: none;
     }
+}
+
+@font-face {
+    font-family: "FesterHeavy";
+    src: url(Fonts/FesterHeavy.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "FesterSemiBold";
+    src: url(Fonts/FesterSemiBold.ttf) format('truetype');
 }

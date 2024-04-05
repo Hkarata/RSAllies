@@ -8,9 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.ServiceDefaults", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.Api", "RSAllies.Api\RSAllies.Api.csproj", "{DA6EB387-D623-4873-A214-80DC10E8CCAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSAllies", "RSAllies\RSAllies\RSAllies.csproj", "{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies", "RSAllies\RSAllies\RSAllies.csproj", "{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSAllies.Client", "RSAllies\RSAllies.Client\RSAllies.Client.csproj", "{C6213AC9-6F37-4787-8B70-826689CB8D1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.Client", "RSAllies\RSAllies.Client\RSAllies.Client.csproj", "{C6213AC9-6F37-4787-8B70-826689CB8D1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

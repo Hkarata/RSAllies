@@ -1,0 +1,21 @@
+﻿.div-card {
+    height: 350px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px 0 #26A3EE;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-card-part1 {
+    flex-basis: 60%;
+    
+}
+
+.second-card{
+    display:flex;
+    justify-content:center;
+    margin-top: -50px;
+}
