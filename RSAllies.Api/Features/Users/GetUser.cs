@@ -12,23 +12,20 @@ namespace RSAllies.Api.Features.Users
 
         public class Query : IRequest<Result<UserDTO>>
         {
-            public Guid Id { get; set; }
+            public Guid Id { get; init; }
         }
 
-        internal sealed class Handler(AppDbContext _context) : IRequestHandler<Query, Result<UserDTO>>
+        internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<UserDTO>>
         {
             public async Task<Result<UserDTO>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
+                var user = await context.Users
                     .AsNoTracking()
                     .Where(u => u.Id == request.Id)
                     .Select(u => new UserDTO { Id = u.Id, FirstName = u.FirstName, LastName = u.LastName, Email = u.Email, Phone = u.Phone})
                     .SingleOrDefaultAsync(cancellationToken);
 
-                if (user == null)
-                    return Result.Failure<UserDTO>(new Error("GetUser.NonexistentUser", "The specified user does not exist"));
-
-                return user;
+                return user ?? Result.Failure<UserDTO>(new Error("GetUser.NonexistentUser", "The specified user does not exist"));
             }
         }
     }
@@ -37,15 +34,11 @@ namespace RSAllies.Api.Features.Users
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/api/users/{id}", async (Guid Id, ISender sender) =>
+            app.MapGet("/api/users/{id:guid}", async (Guid id, ISender sender) =>
             {
-                var result = await sender.Send(new GetUser.Query { Id = Id });
+                var result = await sender.Send(new GetUser.Query { Id = id });
 
-                if (result.IsFailure)
-                    return Results.NotFound(result.Error);
-
-                return Results.Ok(result.Value);
-
+                return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result.Value);
             });
         }
     }
