@@ -58,6 +58,18 @@ namespace RSAllies.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3dde55aa-bc06-469a-9679-5084db85df06"),
+                            BookingDate = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8809),
+                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8813),
+                            IsDeleted = false,
+                            SessionId = new Guid("287fb764-21ae-4692-9aeb-acb10f272c88"),
+                            Status = "Booked",
+                            UserId = new Guid("0176e150-17f5-452e-b455-135fc52464a1")
+                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Session", b =>
@@ -89,6 +101,17 @@ namespace RSAllies.Api.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("Sessions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("287fb764-21ae-4692-9aeb-acb10f272c88"),
+                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8719),
+                            CurrentCapacity = 0,
+                            IsDeleted = false,
+                            SessionDate = new DateTime(2024, 4, 12, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8712),
+                            VenueId = new Guid("beffca8d-e238-4775-84f2-9384221b6fa6")
+                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.User", b =>
@@ -135,6 +158,18 @@ namespace RSAllies.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0176e150-17f5-452e-b455-135fc52464a1"),
+                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8011),
+                            Email = "john.doe@example.com",
+                            FirstName = "John",
+                            IsDeleted = false,
+                            LastName = "Doe",
+                            Phone = "1234567890"
+                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Venue", b =>
@@ -170,6 +205,17 @@ namespace RSAllies.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Venues");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("beffca8d-e238-4775-84f2-9384221b6fa6"),
+                            Address = "123 Street, City, Country",
+                            Capacity = 100,
+                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8488),
+                            IsDeleted = false,
+                            Name = "Venue 1"
+                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.VenueAvailability", b =>
@@ -198,6 +244,16 @@ namespace RSAllies.Api.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("VenueAvailabilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("891dc9c2-ee4a-4f8b-b351-f1c097435063"),
+                            AvailableDate = new DateTime(2024, 4, 12, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8598),
+                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8611),
+                            IsDeleted = false,
+                            VenueId = new Guid("beffca8d-e238-4775-84f2-9384221b6fa6")
+                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Booking", b =>
