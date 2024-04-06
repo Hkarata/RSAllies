@@ -1,6 +1,6 @@
 ﻿namespace RSAllies.Api.Contracts;
 
-public record BookingDto
+public record CreateBookingDto
 {
     public Guid UserId { get; set; }
     public Guid SessionId { get; set; }

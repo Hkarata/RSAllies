@@ -7,42 +7,38 @@ using RSAllies.Api.HelperTypes;
 
 namespace RSAllies.Api.Features.Bookings;
 
-public abstract class GetUserBooking
+public abstract class GetUserBookings
 {
-    public class Query : IRequest<Result<BookingDto>>
+    public class Query : IRequest<Result<List<BookingDto>>>
     {
         public Guid Id { get; init; }
     }
     
-    internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<BookingDto>>
+    internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<BookingDto>>>
     {
-        public async Task<Result<BookingDto>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<List<BookingDto>>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var booking = await context.Bookings
+            var bookings = await context.Bookings
                 .AsNoTracking()
                 .Where(b => b.UserId == request.Id)
                 .Include(b => b.Session)
-                .SingleOrDefaultAsync(cancellationToken);
+                .ThenInclude(b => b.Venue)
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    VenueName = b.Session.Venue.Name,
+                    VenueAddress = b.Session.Venue.Address,
+                    SessionDate = b.Session.SessionDate
+                })
+                .ToListAsync(cancellationToken);
 
-            var venue = await context.Venues
-                .AsNoTracking()
-                .Where(v => booking != null && v.Id == booking.Session.VenueId)
-                .SingleOrDefaultAsync(cancellationToken);
-
-            if (booking == null)
-                return Result.Failure<BookingDto>(new Error("GetUserBooking.Non-ExistentBooking",
-                    "The specified booking does not exist"));
-            
-            var userBooking = new BookingDto
+            if (bookings.Count == 0)
             {
-                Id = booking.Id,
-                VenueName = venue?.Name,
-                VenueAddress = venue?.Address,
-                SessionDate = booking.Session.SessionDate
-            };
+                return Result.Failure<List<BookingDto>>(new Error("GetUserBookings.NoBookings",
+                    "The specified user has no bookings"));
+            }
 
-            return userBooking;
-
+            return bookings;
         }
     }
 }
@@ -51,9 +47,9 @@ public class GetUserBookingEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/user/{id:guid}/booking", async (Guid id, ISender sender) =>
+        app.MapGet("api/user/{id:guid}/bookings", async (Guid id, ISender sender) =>
         {
-            var request = new GetUserBooking.Query { Id = id };
+            var request = new GetUserBookings.Query { Id = id };
             var result = await sender.Send(request);
             return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result);
         });
