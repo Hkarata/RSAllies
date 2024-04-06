@@ -46,7 +46,7 @@ public class GetVenueEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/venues/{id:guid}" ,async (Guid id, ISender sender) =>
+        app.MapGet("api/venue/{id:guid}" ,async (Guid id, ISender sender) =>
         {
             var request = new GetVenue.Query { Id = id };
             var result = await sender.Send(request);

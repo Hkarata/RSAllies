@@ -34,7 +34,7 @@ namespace RSAllies.Api.Features.Users
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("/api/users/{id:guid}", async (Guid id, ISender sender) =>
+            app.MapGet("/api/user/{id:guid}", async (Guid id, ISender sender) =>
             {
                 var result = await sender.Send(new GetUser.Query { Id = id });
 
