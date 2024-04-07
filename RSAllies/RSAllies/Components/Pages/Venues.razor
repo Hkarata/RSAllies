@@ -38,6 +38,7 @@
         foreach (var venue in _venues)
         {
             <FluentCard>
+                @venue.Id
                 @venue.Name
                 @venue.Address
                 @venue.Capacity
