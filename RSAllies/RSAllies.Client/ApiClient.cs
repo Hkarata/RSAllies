@@ -1,6 +1,6 @@
 ﻿namespace RSAllies.Client;
 
-public class ApiClient
+public class ApiClient(HttpClient httpClient)
 {
     
 }
