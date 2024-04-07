@@ -1,8 +1,8 @@
 ﻿@page "/venues"
-@attribute [StreamRendering(true)]
 @rendermode InteractiveServer
+@attribute [StreamRendering]
 
-@using RSAllies.Client.HelperTypes
+
 @using RSAllies.Contracts
 
 @inject ApiClient ApiClient
@@ -13,10 +13,10 @@
 <div class="div-card">
     
     <div class="div-card-part1">
-        <p style="font-family: FesterHeavy;font-size: 30px">Test Centers</p>
-        <p style="font-family: FesterHeavy; font-size: 30px;">Across All Regions in Tanzania</p>
+        <p style="font-family: FesterHeavy,serif;font-size: 30px">Test Centers</p>
+        <p style="font-family: FesterHeavy,serif; font-size: 30px;">Across All Regions in Tanzania</p>
         <br/>
-        <p style="font-family: 'Segoe Print';color:#FF6653;font-weight:600;">Our test centers are equipped with the latest technology and are designed to provide a conducive environment for our candidates to take their exams.</p>
+        <p style="font-family: 'Segoe Print',serif;color:#FF6653;font-weight:600;">Our test centers are equipped with the latest technology and are designed to provide a conducive environment for our candidates to take their exams.</p>
         <br />
         <FluentStack Orientation="Orientation.Horizontal">
             <FluentAnchor Href="venues/add-venue">Add Venue</FluentAnchor>
@@ -24,14 +24,19 @@
         </FluentStack>
     </div>
 
-    <img src="/Images/centre.jpg" style="border-radius:8px;"/>
+    <img src="/Images/centre.jpg" style="border-radius:8px;" alt=""/>
 
 </div>
 
 <div class="second-card">
     <FluentCard Width="80%" Height="100px">
         <h4>Region</h4>
-        <FluentCombobox AriaLabel="Pre-selected option" Items="@_names" @bind-Value="@_name" Width="100%"/>
+        <FluentCombobox Items="@_stringOptions"
+                        OptionText="@(i => i.Text)"
+                        OptionValue="@(i => i.Value)"
+                        OptionSelected="@(i => i.Selected)"
+                        @bind-SelectedOption="@_selectedStringOption"
+                        @bind-Value="@_stringValue" />
     </FluentCard>
 </div>
 
@@ -43,7 +48,7 @@
             <FluentCard>
                 <div style="display:flex;flex-direction:row;gap:100px;align-items:center">
 
-                    <img src="favicon.ico" width="75" height="75"/>
+                    <img src="favicon.ico" width="75" height="75" alt=""/>
 
                     <div @onclick="@(() => NavigationManager.NavigateTo($"/venues/venue/{venue.Id}?name={venue.Name}&address={venue.Address}&capacity={venue.Capacity}"))">
                         <p>@venue.Name</p>
@@ -66,9 +71,15 @@
 
 @code {
 
-    string _name = "All";
+    string? _stringValue;
+    private Option<string> _selectedStringOption = default!;
 
-    readonly List<string> _names = ["Option 1", "Option 2", "Option 3"];
+    readonly List<Option<string>> _stringOptions =
+    [
+        new Option<string> { Value = "1", Text = "One" },
+        new Option<string> { Value = "2", Text = "Two", Selected = true },
+        new Option<string> { Value = "3", Text = "Three" }
+    ];
 
     List<VenueDto>? _venues = [];
 
