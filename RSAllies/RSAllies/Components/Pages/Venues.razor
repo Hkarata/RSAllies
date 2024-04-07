@@ -1,9 +1,12 @@
 ﻿@page "/venues"
+@attribute [StreamRendering(true)]
+@rendermode InteractiveServer
 
 @using RSAllies.Client.HelperTypes
 @using RSAllies.Contracts
 
 @inject ApiClient ApiClient
+@inject NavigationManager NavigationManager
 
 <PageTitle>Venues</PageTitle>
 
@@ -38,12 +41,25 @@
         foreach (var venue in _venues)
         {
             <FluentCard>
-                @venue.Id
-                @venue.Name
-                @venue.Address
-                @venue.Capacity
+                <div style="display:flex;flex-direction:row;gap:100px;align-items:center">
+
+                    <img src="favicon.ico" width="75" height="75"/>
+
+                    <div @onclick="@(() => NavigationManager.NavigateTo($"/venues/venue/{venue.Id}?name={venue.Name}&address={venue.Address}&capacity={venue.Capacity}"))">
+                        <p>@venue.Name</p>
+                        <p>@venue.Address</p>
+                        <p>@venue.Capacity</p>
+                    </div>
+
+
+                </div>
+
             </FluentCard>
         }
+    }
+    else
+    {
+        <FluentProgressRing></FluentProgressRing>
     }
 </FluentStack>
 

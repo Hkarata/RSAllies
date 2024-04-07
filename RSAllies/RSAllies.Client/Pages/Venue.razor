@@ -1,0 +1,39 @@
+﻿@page "/venues/venue/{Id:guid}"
+
+@inject NavigationManager NavManager
+
+<PageTitle>Venue - @Name</PageTitle>
+<h3>Venue</h3>
+
+@Id
+
+@Name
+
+@Address
+
+@Capacity
+@code {
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    [Parameter]
+    public string Name { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Address { get; set; } = string.Empty;
+
+    [Parameter] 
+    public string Capacity { get; set; } = string.Empty;
+
+
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(NavManager.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+        Name = query["name"];
+        Address = query["address"];
+        Capacity = query["capacity"];
+    }
+
+}
