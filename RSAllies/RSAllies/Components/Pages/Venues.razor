@@ -33,13 +33,16 @@
 </div>
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="10" Style="margin-top:20px">
-    @foreach (var venue in _venues)
+    @if(_venues?.Count > 0)
     {
-        <FluentCard>
-            @venue.Name
-            @venue.Address
-            @venue.Capacity
-        </FluentCard>
+        foreach (var venue in _venues)
+        {
+            <FluentCard>
+                @venue.Name
+                @venue.Address
+                @venue.Capacity
+            </FluentCard>
+        }
     }
 </FluentStack>
 
