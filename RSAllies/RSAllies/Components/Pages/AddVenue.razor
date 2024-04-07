@@ -23,13 +23,16 @@
 <div style="display:flex;flex-direction:column;justify-content:center; align-items:center;width:100%;">
     <p style="font-family: 'Segoe Print',serif;color:#FF6653;font-weight:600;font-size:18px">Let's create a venue, its location as well as its capacity.</p>
 
-    <FluentCard Width="500px">
+    <FluentCard Width="500px" >
         <EditForm Model="Input" method="post" OnValidSubmit="Submit" FormName="CreateVenue">
             <DataAnnotationsValidator />
             <FluentTextField Label="Name" @bind-Value="Input.Name" Placeholder="Enter the name of the venue" Style="width:100%" />
+            <br /> <br />
             <FluentTextField Label="Address" @bind-Value="Input.Address" Placeholder="Enter the address of the venue" Style="width:100%" />
+            <br /> <br />
             <FluentNumberField Label="Capacity" @bind-Value="Input.Capacity" Placeholder="Enter the capacity of the venue" Style="width:100%" />
-            <FluentButton BackgroundColor="#ee3026" Type="ButtonType.Submit" Style="width:100%">Create Venue</FluentButton>
+            <br /> <br />
+            <FluentButton BackgroundColor="#ee3026" Type="ButtonType.Submit" Style="width:100%;font-size:18px;color:white;font-family:FesterSemiBold">Create Venue</FluentButton>
         </EditForm>
     </FluentCard>
 </div>

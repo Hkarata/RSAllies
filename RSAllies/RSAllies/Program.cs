@@ -38,7 +38,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddHttpClient<ApiClient>("https://rsalliesapi20240405212943.azurewebsites.net");
+builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new("https://rsalliesapi20240405212943.azurewebsites.net"));
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
