@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RSAllies.Api.Data;
 
 #nullable disable
@@ -18,38 +18,38 @@ namespace RSAllies.Api.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("RSAllies.Api.Entities.Booking", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<Guid>("SessionId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -58,146 +58,110 @@ namespace RSAllies.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3dde55aa-bc06-469a-9679-5084db85df06"),
-                            BookingDate = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8809),
-                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8813),
-                            IsDeleted = false,
-                            SessionId = new Guid("287fb764-21ae-4692-9aeb-acb10f272c88"),
-                            Status = "Booked",
-                            UserId = new Guid("0176e150-17f5-452e-b455-135fc52464a1")
-                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Session", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CurrentCapacity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("SessionDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("VenueId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("VenueId");
 
                     b.ToTable("Sessions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("287fb764-21ae-4692-9aeb-acb10f272c88"),
-                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8719),
-                            CurrentCapacity = 0,
-                            IsDeleted = false,
-                            SessionDate = new DateTime(2024, 4, 12, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8712),
-                            VenueId = new Guid("beffca8d-e238-4775-84f2-9384221b6fa6")
-                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0176e150-17f5-452e-b455-135fc52464a1"),
-                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8011),
-                            Email = "john.doe@example.com",
-                            FirstName = "John",
-                            IsDeleted = false,
-                            LastName = "Doe",
-                            Phone = "1234567890"
-                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Venue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -205,55 +169,34 @@ namespace RSAllies.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Venues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("beffca8d-e238-4775-84f2-9384221b6fa6"),
-                            Address = "123 Street, City, Country",
-                            Capacity = 100,
-                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8488),
-                            IsDeleted = false,
-                            Name = "Venue 1"
-                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.VenueAvailability", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("AvailableDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("VenueId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("VenueId");
 
                     b.ToTable("VenueAvailabilities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("891dc9c2-ee4a-4f8b-b351-f1c097435063"),
-                            AvailableDate = new DateTime(2024, 4, 12, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8598),
-                            CreatedAt = new DateTime(2024, 4, 5, 20, 31, 34, 958, DateTimeKind.Local).AddTicks(8611),
-                            IsDeleted = false,
-                            VenueId = new Guid("beffca8d-e238-4775-84f2-9384221b6fa6")
-                        });
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Booking", b =>
