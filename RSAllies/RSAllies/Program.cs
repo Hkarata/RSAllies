@@ -11,6 +11,8 @@ using RSAllies.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.AddServiceDefaults();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
@@ -38,7 +40,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new("https://rsalliesapi20240405212943.azurewebsites.net"));
+builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new("http://apiservice"));
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 

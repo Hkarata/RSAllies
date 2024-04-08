@@ -11,6 +11,7 @@ var assembly = typeof(Program).Assembly;
 
 
 // Add services to the container.
+builder.AddServiceDefaults();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("AppDbConnection")));
