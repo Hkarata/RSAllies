@@ -11,7 +11,6 @@ var assembly = typeof(Program).Assembly;
 
 
 // Add services to the container.
-builder.Services.AddScoped<DatabaseSeeder>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("AppDbConnection")));
