@@ -1,0 +1,20 @@
+﻿@using RSAllies.Client.Models
+@implements IDialogContentComponent<RSAllies.Client.Models.Session>
+
+<FluentMessageBarProvider Section="@App.MESSAGES_DIALOG" MaxMessageCount="1" />
+
+@code{
+
+    [Parameter]
+    public Session Content { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentDialog? Dialog { get; set; }
+
+    private void ToggleDialogPrimaryActionButton(bool enable)
+    {
+        Dialog!.TogglePrimaryActionButton(enable);
+    }
+
+}
+
