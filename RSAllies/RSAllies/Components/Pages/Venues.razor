@@ -1,5 +1,5 @@
 ﻿@page "/venues"
-@rendermode InteractiveServer
+@rendermode InteractiveAuto
 @attribute [StreamRendering]
 
 
@@ -29,7 +29,7 @@
 </div>
 
 <div class="second-card">
-    <FluentCard Width="80%" Height="100px">
+    <FluentCard Width="80%" Height="1000px">
         <h4>Region</h4>
         <FluentCombobox Items="@_stringOptions"
                         OptionText="@(i => i.Text)"
@@ -41,9 +41,9 @@
 </div>
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="10" Style="margin-top:20px">
-    @if(_venues?.Count > 0)
-    {
-        foreach (var venue in _venues)
+    
+    
+        @foreach (var venue in _venues)
         {
             <FluentCard>
                 <div style="display:flex;flex-direction:row;gap:100px;align-items:center">
@@ -61,11 +61,8 @@
 
             </FluentCard>
         }
-    }
-    else
-    {
-        <FluentProgressRing></FluentProgressRing>
-    }
+    
+   
 </FluentStack>
 
 
