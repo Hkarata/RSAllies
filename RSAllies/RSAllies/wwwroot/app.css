@@ -196,3 +196,20 @@ code {
     font-family: "FesterSemiBold";
     src: url(Fonts/FesterSemiBold.ttf) format('truetype');
 }
+
+fluent-badge {
+    --badge-fill-highlight: #26A3EE;
+    --badge-fill-lowlight: #ffd800;
+    --badge-color-highlight: #000;
+    --badge-color-lowlight: #fff;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

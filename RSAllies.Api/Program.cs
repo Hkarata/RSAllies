@@ -14,7 +14,7 @@ var assembly = typeof(Program).Assembly;
 builder.AddServiceDefaults();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("AppDbConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnection")));
 
 builder.Logging.EnableRedaction();
 

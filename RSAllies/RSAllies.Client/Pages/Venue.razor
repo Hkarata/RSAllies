@@ -1,66 +1,80 @@
 ﻿@page "/venues/venue/{Id:guid}"
+@rendermode InteractiveAuto
 
 @using RSAllies.Contracts
 
-@inject NavigationManager NavManager
 @inject ApiClient ApiClient
+@inject IDialogService DialogService
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavManager
 
 <PageTitle>Venue - @Name</PageTitle>
 
 
 <div class="card">
     <div>
-        <p style="font-family:FesterHeavy;font-size:30px;display:flex;flex-direction:row;gap:10px;">
+        <p style="font-family:FesterHeavy,serif;font-size:30px;display:flex;flex-direction:row;gap:10px;">
             <FluentIcon Value="@(new Icons.Regular.Size28.ConferenceRoom())" />
             @Name
         </p>
-        <p style="font-family:FesterSemiBold;font-size:20px;display:flex;flex-direction:row;gap:10px;">
+        <p style="font-family:FesterSemiBold,serif;font-size:20px;display:flex;flex-direction:row;gap:10px;">
             <FluentIcon Value="@(new Icons.Regular.Size20.LocationArrow())" />
             @Address
         </p>
-        <p style="font-family:FesterSemiBold;font-size:20px;display:flex;flex-direction:row;gap:10px;">
+        <p style="font-family:FesterSemiBold,serif;font-size:20px;display:flex;flex-direction:row;gap:10px;">
             <FluentIcon Value="@(new Icons.Regular.Size20.NumberSymbolSquare())" />
             Capacity: @Capacity
         </p>
         <p class="explanation">Each venue is equipped with computers, although testees have the option to bring their own devices. Additionally, multiple sessions are available throughout the day.</p>
     </div>
-    <img src="/Images/examcenter.jpg" height="300" alt="" style="border-radius: 10px;flex-basis:50%" />
+    <img src="/Images/exam-center.jpg" height="300" alt="" style="border-radius: 10px;flex-basis:50%" />
 </div>
 
 <br />
 <br />
 <div class="second-div">
     <p>Sessions</p>
-    <FluentNavLink Href="#">Add Session</FluentNavLink>
+    <FluentButton @onclick="OpenDialog">Create Session</FluentButton>
 </div>
 
 
-@if (_sessions.Count == 0)
-{
-    <p>No sessions available</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Available Seats</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var session in _sessions)
-            {
-                <tr>
-                    <td>@session.SessionDate.Date.ToString("dd/MM/yyyy")</td>
-                    <td>@session.SessionDate.TimeOfDay.ToString("hh\\:mm")</td>
-                    <td>@session.CurrentCapacity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<FluentGrid>
+    @foreach(var session in _sessions)
+    {
+        <FluentGridItem xs="4">
+            <FluentCard Style="padding:8px">
+                <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                    <p style="font-family:'Segoe Print',serif;font-weight:550;color:#FF6653">Session</p>
+                    @if (session.CurrentCapacity < int.Parse(Capacity))
+                    {
+                        <FluentBadge Fill="highlight" Color="white" Style="font-family:'Segoe Print',serif">Available</FluentBadge>
+                    }
+                    else
+                    {
+                        <FluentBadge Fill="lowlight" Color="Black" Style="font-family:'Segoe Print',serif;font-weight:600">Full</FluentBadge>
+                    }
+                    
+                </div>
+                <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                    <p style="font-family:FesterSemiBold,serif;">Date</p>
+                    <p style="font-family:FesterSemiBold,serif;">@session.SessionDate.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                    <p style="font-family:FesterSemiBold,serif;">Time</p>
+                    <p style="font-family:FesterSemiBold,serif;">@session.SessionDate.ToString("HH:mm")</p>
+                </div>
+                <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                    <p style="font-family:FesterSemiBold,serif;">Capacity</p>
+                    <p style="font-family:FesterSemiBold,serif;">@session.CurrentCapacity</p>
+                </div>
+                <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                    <p style="font-family:FesterSemiBold,serif;">Available Seats</p>
+                    <p style="font-family:FesterSemiBold,serif;">@(int.Parse(Capacity) - session.CurrentCapacity)</p>
+                </div>
+            </FluentCard>
+        </FluentGridItem>
+    }
+</FluentGrid>
 
 @code {
 
@@ -92,6 +106,29 @@ else
     {
         var sessions = await ApiClient.GetVenueSessionAsync(Id);
         _sessions = sessions?.Value!;
+    }
+
+    private async Task OpenDialog()
+    {
+        var venue = new Models.VenueDto
+            {
+                VenueId = Id,
+                Capacity = int.Parse(Capacity)
+            };
+        
+        
+        DialogParameters parameters = new()
+        {
+            Title = "Create Session",
+            DialogType = DialogType.Dialog,
+            Width = "600px",
+            TrapFocus = true,
+            Modal = true,
+            PreventScroll = true 
+        };
+
+        await DialogService.ShowDialogAsync<Dialogs.CreateSession>(venue, parameters);
+
     }
 
 }

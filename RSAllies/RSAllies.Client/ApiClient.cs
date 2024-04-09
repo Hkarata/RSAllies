@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RSAllies.Client.HelperTypes;
 using RSAllies.Contracts;
+using System.Net.Http.Json;
 
 namespace RSAllies.Client;
 
@@ -37,4 +38,14 @@ public class ApiClient(HttpClient httpClient)
         }
     }
 
+    public async Task<bool> CreateSession(Guid VenueId, DateTime date)
+    {
+        var request = new SessionDto
+        {
+            VenueId = VenueId,
+            SessionDate = date
+        };
+        var response = await httpClient.PostAsJsonAsync<SessionDto>("/api/sessions", request);
+        return response.IsSuccessStatusCode ? true : false;
+    }
 }

@@ -1,15 +1,73 @@
 ﻿@using RSAllies.Client.Models
-@implements IDialogContentComponent<RSAllies.Client.Models.Session>
+@implements IDialogContentComponent<RSAllies.Client.Models.VenueDto>
 
-<FluentMessageBarProvider Section="@App.MESSAGES_DIALOG" MaxMessageCount="1" />
+@inject ApiClient ApiClient
+@inject IMessageService MessageService
+
+<FluentMessageBarProvider Section="MESSAGES_DIALOG" MaxMessageCount="1" />
+
+<div style="display:flex;flex-direction:row;justify-content:space-between">
+    <FluentDatePicker @bind-Value="@MyDate0" Label="Date" Style="font-family:FesterSemiBold" />
+
+    <FluentTimePicker @bind-Value="@MyTime0" Label="Time" Style="font-family:FesterSemiBold" />
+</div>
+
+<br/>
+
+<FluentButton OnClick="Create" BackgroundColor="#ee3026" Style="width:100%;font-family:FesterSemiBold;color:white;font-size:16px;">Create</FluentButton>
 
 @code{
 
+    private DateTime? MyDate0 = DateTime.Now;
+    private DateTime? MyTime0 = DateTime.Now;
+    private int exampleInt = 0;
+
     [Parameter]
-    public Session Content { get; set; } = default!;
+    public VenueDto Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog? Dialog { get; set; }
+
+    public DateTime SessionDate { get; set; }
+
+    private async void Create()
+    {
+        if (MyDate0.HasValue && MyTime0.HasValue)
+        {
+            SessionDate = new DateTime(
+                MyDate0.Value.Year,
+                MyDate0.Value.Month,
+                MyDate0.Value.Day,
+                MyTime0.Value.Hour,
+                MyTime0.Value.Minute,
+                MyTime0.Value.Second
+            );
+        }
+
+        var response = await ApiClient.CreateSession(Content.VenueId, SessionDate);
+
+        if (response)
+        {
+            MessageService.ShowMessageBar(options =>
+            {
+                options.Intent = MessageIntent.Success;
+                options.Title = "Success";
+                options.Body = "Session created successfully";
+                options.Section = "MESSAGES_DIALOG";
+            });
+        }
+        else
+        {
+            MessageService.ShowMessageBar(options =>
+            {
+                options.Intent = MessageIntent.Error;
+                options.Title = "Error";
+                options.Body = "Failed to create session";
+                options.Section = "MESSAGES_DIALOG";
+            });
+        }
+
+    }
 
     private void ToggleDialogPrimaryActionButton(bool enable)
     {

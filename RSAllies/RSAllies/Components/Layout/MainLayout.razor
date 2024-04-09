@@ -13,9 +13,12 @@
         <NavMenu />
         <FluentBodyContent Class="body-content" Style="font-family:Bahnschrift">
             <div class="content" style="font-family:Bahnschrift;">
+                <FluentMessageBarProvider Section="MESSAGES_TOP" @rendermode="InteractiveServer"/>
                 @Body
             </div>
         </FluentBodyContent>
+        <FluentToastProvider MaxToastCount="10" @rendermode="InteractiveServer"/>
+        <FluentDialogProvider @rendermode="InteractiveServer"/>
     </FluentStack>
     <FluentFooter>
         <div class="link1">
