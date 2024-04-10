@@ -1,0 +1,68 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+
+<div class="container">
+
+    <div class="first-div">
+
+        <div class="div1">
+            
+            <h1 style="color:#ee3026">Make the Roads</h1>
+            <h2>More <span style="color:yellowgreen;">Safe</span> </h2>
+            <p style="font-family:'Segoe Script';color:#26A3EE;font-weight:550;">
+                Welcome to our platform, where efficiency meets convenience!
+            </p>
+            <p>
+                You add new venues, ensuring our users have a diverse selection to choose from. Not only can you check the availability, but also create and manage sessions.
+            </p>
+            <p>
+                We are dedicated to making the roads safer for everyone.
+            </p>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <FluentNavLink Style="background-color:#ee3026;color:white;width:fit-content;border-radius:3px;padding:8px;" Href="/Account/Login">Get Started</FluentNavLink>
+                </NotAuthorized>
+            </AuthorizeView>
+           
+        </div>
+
+        <div class="div2">
+            <img src="/Images/bg3.jpg"/>
+        </div>
+
+    </div>
+
+    <br/>
+
+    <div class="second-div">
+        
+        <div class="card">
+
+            <img src="/Images/booking.png"/>
+
+            <h3>Booking Management</h3>
+
+        </div>
+
+        <div class="card">
+
+            <img src="/Images/map.png" />
+
+            <h3>Venue Management</h3>
+
+        </div>
+
+        <div class="card">
+
+            <img src="/Images/session.png" />
+
+            <h3>Session Management</h3>
+
+        </div>
+
+
+    </div>
+
+</div>

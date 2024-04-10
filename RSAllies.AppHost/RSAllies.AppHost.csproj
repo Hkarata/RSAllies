@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RSAllies.Api\RSAllies.Api.csproj" />
-    <ProjectReference Include="..\RSAllies\RSAllies\RSAllies.csproj" />
+    <ProjectReference Include="..\RSAllies\RSAllies\RSAllies\RSAllies.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,95 @@
+﻿.container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    padding: 8px;
+}
+
+.first-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+}
+    .first-div div{
+        flex-basis: 50%;
+    }
+
+.div1{
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+    .div1 h1{
+        font-family:'Segoe Print';
+        font-weight:600;
+    }
+
+    .div1 h2 {
+        font-family: 'Segoe Print';
+        font-weight: 600;
+    }
+
+    .div1 p{
+        font-family:'Segoe Script';
+    }
+
+.div2{
+
+}
+    .div2 img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+
+
+@media (max-width: 600px) {
+    .first-div {
+        flex-direction: column;
+    }
+
+    .div1 {
+        margin-left: 0;
+    }
+}
+
+.second-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    height: 150px;
+    margin: 1em;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    gap: 8px;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    .card img{
+        width: 65px;
+        height: 65px;
+    }
+
+    .card h3{
+        font-family:'Segoe Script';
+    }
+
+@media screen and (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
+}

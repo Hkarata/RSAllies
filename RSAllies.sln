@@ -4,13 +4,13 @@ VisualStudioVersion = 17.10.34707.107
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.Api", "RSAllies.Api\RSAllies.Api.csproj", "{DA6EB387-D623-4873-A214-80DC10E8CCAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies", "RSAllies\RSAllies\RSAllies.csproj", "{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.Client", "RSAllies\RSAllies.Client\RSAllies.Client.csproj", "{C6213AC9-6F37-4787-8B70-826689CB8D1F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSAllies.AppHost", "RSAllies.AppHost\RSAllies.AppHost.csproj", "{5F81D37B-7DCA-4FD3-B2F0-5C6AD94A5567}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.AppHost", "RSAllies.AppHost\RSAllies.AppHost.csproj", "{5F81D37B-7DCA-4FD3-B2F0-5C6AD94A5567}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.ServiceDefaults", "RSAllies.ServiceDefaults\RSAllies.ServiceDefaults.csproj", "{37C69D18-E34C-49AC-BA0F-5EB79A6E1950}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies", "RSAllies\RSAllies\RSAllies\RSAllies.csproj", "{58099E23-C051-4A40-8A6A-41AE68AE9718}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAllies.Client", "RSAllies\RSAllies\RSAllies.Client\RSAllies.Client.csproj", "{ABC01D05-05EC-4591-A828-5D533D70F516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +22,6 @@ Global
 		{DA6EB387-D623-4873-A214-80DC10E8CCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6EB387-D623-4873-A214-80DC10E8CCAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6EB387-D623-4873-A214-80DC10E8CCAD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACEAE4CB-1ADB-4B66-B136-604077B1FAF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6213AC9-6F37-4787-8B70-826689CB8D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6213AC9-6F37-4787-8B70-826689CB8D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6213AC9-6F37-4787-8B70-826689CB8D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6213AC9-6F37-4787-8B70-826689CB8D1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F81D37B-7DCA-4FD3-B2F0-5C6AD94A5567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F81D37B-7DCA-4FD3-B2F0-5C6AD94A5567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F81D37B-7DCA-4FD3-B2F0-5C6AD94A5567}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,6 +30,14 @@ Global
 		{37C69D18-E34C-49AC-BA0F-5EB79A6E1950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37C69D18-E34C-49AC-BA0F-5EB79A6E1950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37C69D18-E34C-49AC-BA0F-5EB79A6E1950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58099E23-C051-4A40-8A6A-41AE68AE9718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58099E23-C051-4A40-8A6A-41AE68AE9718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58099E23-C051-4A40-8A6A-41AE68AE9718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58099E23-C051-4A40-8A6A-41AE68AE9718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC01D05-05EC-4591-A828-5D533D70F516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC01D05-05EC-4591-A828-5D533D70F516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC01D05-05EC-4591-A828-5D533D70F516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC01D05-05EC-4591-A828-5D533D70F516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,99 @@
+﻿@page "/Account/Login"
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using RSAllies.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject ILogger<Login> Logger
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+
+<PageTitle>Log in</PageTitle>
+
+<div class="container">
+    <FluentCard Style="width:400px;height:fit-content;">
+        <StatusMessage Message="@errorMessage" />
+        <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+            <DataAnnotationsValidator />
+            <div style="display:flex;justify-content:center">
+                <img src="logo.ico" width="100" height="100"/>
+            </div>
+            <FluentStack Orientation="Orientation.Vertical">
+                <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Placeholder="name@example.com" Label="Email" Style="width: 100%;font-family:Bahnschrift;" />
+                <FluentValidationMessage For="() => Input.Email" class="text-danger" />
+                <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Placeholder="password" Label="Password" Style="width: 100%;font-family:Bahnschrift;" />
+                <FluentValidationMessage For="() => Input.Password" class="text-danger" />
+                <br />
+                <FluentCheckbox Style="font-family:Bahnschrift;" Name="Input.RememberMe" @bind-Value="Input.RememberMe" Label="Remember me" />
+                <br/>
+                <FluentButton BackgroundColor="#ee3026" Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="font-weight:600;width: 100%;text-transform:uppercase;font-family:'Segoe Script'">LOG IN</FluentButton>
+            </FluentStack>
+        </EditForm>
+    </FluentCard>
+</div>
+
+
+@code {
+    private string? errorMessage;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
+
+    public async Task LoginUser()
+    {
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            Logger.LogInformation("User with email {email} logged in.",Input.Email);
+            RedirectManager.RedirectTo("/dashboard");
+        }
+        else if (result.RequiresTwoFactor)
+        {
+            RedirectManager.RedirectTo(
+                "Account/LoginWith2fa",
+                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+        }
+        else if (result.IsLockedOut)
+        {
+            Logger.LogWarning("User account locked out.");
+            RedirectManager.RedirectTo("Account/Lockout");
+        }
+        else
+        {
+            errorMessage = "Error: Invalid login attempt.";
+        }
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = "";
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+}
