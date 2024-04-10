@@ -6,6 +6,8 @@ body {
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
     margin: 0;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 .navmenu-icon {
@@ -184,4 +186,8 @@ code {
         height: 20px;
         border: none;
     }
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }

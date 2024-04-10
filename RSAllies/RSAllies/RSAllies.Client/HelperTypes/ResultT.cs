@@ -11,7 +11,7 @@ namespace RSAllies.Client.HelperTypes
             : base(isSuccess, error) =>
             _value = value;
 
-        public List? Value => IsSuccess
+        public TValue Value => IsSuccess
             ? _value!
             : throw new InvalidOperationException("The value of a failure result can not be accessed.");
 

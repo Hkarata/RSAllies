@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <ProjectReference Include="..\..\..\RSAllies.Api\RSAllies.Api.csproj" />
     <ProjectReference Include="..\..\..\RSAllies.ServiceDefaults\RSAllies.ServiceDefaults.csproj" />
     <ProjectReference Include="..\RSAllies.Client\RSAllies.Client.csproj" />

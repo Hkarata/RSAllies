@@ -1,4 +1,4 @@
-﻿namespace RSAllies.Contracts;
+﻿namespace RSAllies.Client.Contracts;
 
 public record CreateVenueDto
 {

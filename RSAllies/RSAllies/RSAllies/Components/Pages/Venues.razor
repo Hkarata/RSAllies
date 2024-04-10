@@ -1,9 +1,44 @@
 ﻿@page "/venues"
+@attribute [StreamRendering]
+
+@using RSAllies.Client.Contracts
+
+@inject ApiClient ApiClient
 
 <PageTitle>Venues</PageTitle>
 
-<h3>Venues</h3>
+<div class="container">
+    
+    <div>
+        <h3>Venues</h3>
+    </div>
+
+
+    <FluentGrid>
+
+        @foreach (var venue in _venues!)
+        {
+            <FluentGridItem xs="4">
+                <FluentCard Style="padding: 8px">
+                    <img src="/Images/bg3.jpg"  style="width:100%;border-radius:8px;"/>
+                    <p style="font-family:Bahnschrift">@venue.Name</p>
+                    <p style="font-family:Bahnschrift">@venue.Address</p>
+                    <p style="font-family:Bahnschrift">@venue.Capacity seats</p>
+                </FluentCard>
+            </FluentGridItem>
+        }
+
+    </FluentGrid>
+</div>
 
 @code {
+
+    List<VenueDto>? _venues = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        var venues = await ApiClient.GetVenuesAsync();
+        _venues = venues?.Value;
+    }
 
 }

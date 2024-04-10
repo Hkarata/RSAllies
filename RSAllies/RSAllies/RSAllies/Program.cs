@@ -42,9 +42,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-builder.Services.AddHttpClient<ApiClient>(
-    client => client.BaseAddress = new Uri("https://apiservice")
-    );
+builder.Services.AddHttpClient<ApiClient>(client => client.BaseAddress = new("http://apiservice"));
 
 var app = builder.Build();
 

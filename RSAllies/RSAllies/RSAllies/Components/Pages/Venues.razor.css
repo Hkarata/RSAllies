@@ -1,2 +1,11 @@
-﻿body {
+﻿.container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    padding: 8px;
+    scrollbar-width: none;
 }
+
+    .container::-webkit-scrollbar {
+        display: none;
+    }
