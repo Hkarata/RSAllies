@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\RSAllies.Api\RSAllies.Api.csproj" />
     <ProjectReference Include="..\..\..\RSAllies.ServiceDefaults\RSAllies.ServiceDefaults.csproj" />
     <ProjectReference Include="..\RSAllies.Client\RSAllies.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.*-*" />
