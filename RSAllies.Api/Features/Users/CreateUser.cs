@@ -2,7 +2,6 @@
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RSAllies.Api.Authentication;
 using RSAllies.Api.Contracts;
 using RSAllies.Api.Data;
 using RSAllies.Api.Entities;

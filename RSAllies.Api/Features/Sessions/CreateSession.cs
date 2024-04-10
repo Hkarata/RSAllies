@@ -18,7 +18,7 @@ public abstract class CreateSession
         public DateTime SessionDate { get; set; }
         public int CurrentCapacity { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
@@ -32,7 +32,7 @@ public abstract class CreateSession
                 return Result.Failure<Guid>(new Error("CreateSession.Non-ExistentVenue",
                     "The specified venue does not exist"));
             }
-            
+
             var session = new Session
             {
                 Id = Guid.NewGuid(),
@@ -45,7 +45,7 @@ public abstract class CreateSession
             };
 
             context.Add(session);
-            
+
             await context.SaveChangesAsync(cancellationToken);
 
             return session.Id;

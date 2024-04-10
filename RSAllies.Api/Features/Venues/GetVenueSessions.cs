@@ -13,7 +13,7 @@ public abstract class GetVenueSessions
     {
         public Guid Id { get; init; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<SessionDto>>>
     {
         public async Task<Result<List<SessionDto>>> Handle(Query request, CancellationToken cancellationToken)

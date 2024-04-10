@@ -12,7 +12,7 @@ public abstract class DeleteBooking
     {
         public Guid Id { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)

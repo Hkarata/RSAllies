@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RSAllies.Api.Contracts;
 using RSAllies.Api.Data;
-using RSAllies.Api.Features.Sessions;
 using RSAllies.Api.HelperTypes;
 
 namespace RSAllies.Api.Features.VenueAvailabilities;
@@ -16,7 +15,7 @@ public abstract class CreateAvailability
         public Guid VenueId { get; set; }
         public DateTime AvailableDate { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)

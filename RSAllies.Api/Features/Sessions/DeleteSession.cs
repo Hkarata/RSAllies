@@ -12,7 +12,7 @@ public abstract class DeleteSession
     {
         public Guid Id { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
@@ -23,7 +23,7 @@ public abstract class DeleteSession
 
             if (session is null)
             {
-                return Result.Failure<Guid>(new Error("DeleteSession.NonExistentSession","The specified session does not exit"));
+                return Result.Failure<Guid>(new Error("DeleteSession.NonExistentSession", "The specified session does not exit"));
             }
 
             session.IsDeleted = true;

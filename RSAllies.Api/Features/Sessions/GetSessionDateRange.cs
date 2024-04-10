@@ -15,7 +15,7 @@ public abstract class GetSessionDateRange
         public DateTime StartDate { get; init; }
         public DateTime EndDate { get; init; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<SessionDto>>>
     {
         public async Task<Result<List<SessionDto>>> Handle(Query request, CancellationToken cancellationToken)
@@ -51,7 +51,7 @@ public class GetSessionDateRangeEndPoint : ICarterModule
         app.MapGet("api/venue/{id:guid}/sessions/from/{startDate:datetime}/to/{endDate:datetime}",
             async (Guid id, DateTime startDate, DateTime endDate, ISender sender) =>
             {
-                var request = new GetSessionDateRange.Query { VenueId = id    , StartDate = startDate, EndDate = endDate };
+                var request = new GetSessionDateRange.Query { VenueId = id, StartDate = startDate, EndDate = endDate };
                 var result = await sender.Send(request);
                 return result.IsFailure ? Results.BadRequest(result.Error) : Results.Ok(result);
             });

@@ -11,9 +11,9 @@ public abstract class GetSessions
 {
     public class Query : IRequest<Result<List<SessionDto>>>
     {
-        
+
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<SessionDto>>>
     {
         public async Task<Result<List<SessionDto>>> Handle(Query request, CancellationToken cancellationToken)

@@ -37,10 +37,10 @@ public abstract class EditUser
                 user.LastName = request.LastName;
                 user.Email = request.Email;
                 user.Phone = request.Phone;
-                
+
                 await context.SaveChangesAsync(cancellationToken);
             }
-            
+
             return user!.Id;
         }
     }

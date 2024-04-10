@@ -11,9 +11,9 @@ public abstract class GetVenues
 {
     public class Query : IRequest<Result<List<VenueDto>>>
     {
-        
+
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<VenueDto>>>
     {
         public async Task<Result<List<VenueDto>>> Handle(Query request, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ public abstract class GetVenues
                     Capacity = v.Capacity
                 })
                 .ToListAsync(cancellationToken);
-            
+
             return venues.Count == 0 ? Result.Failure<List<VenueDto>>(new Error("GetVenues.NoVenues", "There are no venues")) : venues;
         }
     }

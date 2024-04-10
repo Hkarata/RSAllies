@@ -38,14 +38,14 @@ public abstract class CreateVenue
             return venue.Id;
         }
     }
-    
+
 }
 
 public class CreateVenueEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/venues", async (CreateVenueDto venue,ISender sender) =>
+        app.MapPost("api/venues", async (CreateVenueDto venue, ISender sender) =>
         {
             var request = venue.Adapt<CreateVenue.Command>();
             var result = await sender.Send(request);

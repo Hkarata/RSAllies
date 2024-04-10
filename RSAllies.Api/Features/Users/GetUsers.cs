@@ -11,9 +11,9 @@ public abstract class GetUsers
 {
     public class Query : IRequest<Result<List<UserDTO>>>
     {
-        
+
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<UserDTO>>>
     {
         public async Task<Result<List<UserDTO>>> Handle(Query request, CancellationToken cancellationToken)

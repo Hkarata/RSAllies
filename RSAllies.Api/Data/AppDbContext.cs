@@ -22,7 +22,7 @@ namespace RSAllies.Api.Data
             modelBuilder.Entity<User>().HasIndex(u => u.Phone).IsUnique();
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
             modelBuilder.Entity<Venue>().HasIndex(v => v.Name).IsUnique();
-    }
+        }
 
-}
+    }
 }

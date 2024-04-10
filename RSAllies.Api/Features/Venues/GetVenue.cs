@@ -1,5 +1,4 @@
 ﻿using Carter;
-using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RSAllies.Api.Contracts;
@@ -14,7 +13,7 @@ public abstract class GetVenue
     {
         public Guid Id { get; init; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<VenueDto>>
     {
         public async Task<Result<VenueDto>> Handle(Query request, CancellationToken cancellationToken)
@@ -46,7 +45,7 @@ public class GetVenueEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/venue/{id:guid}" ,async (Guid id, ISender sender) =>
+        app.MapGet("api/venue/{id:guid}", async (Guid id, ISender sender) =>
         {
             var request = new GetVenue.Query { Id = id };
             var result = await sender.Send(request);

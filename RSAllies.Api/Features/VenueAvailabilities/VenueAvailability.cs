@@ -1,7 +1,6 @@
 ﻿using Carter;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RSAllies.Api.Contracts;
 using RSAllies.Api.Data;
 using RSAllies.Api.HelperTypes;
 
@@ -13,7 +12,7 @@ public abstract class VenueAvailability
     {
         public Guid Id { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<DateTime>>>
     {
         public async Task<Result<List<DateTime>>> Handle(Query request, CancellationToken cancellationToken)

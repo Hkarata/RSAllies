@@ -1,5 +1,4 @@
 ﻿using Carter;
-using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RSAllies.Api.Contracts;
@@ -14,7 +13,7 @@ public abstract class GetSession
     {
         public Guid Id { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<SessionDto>>
     {
         public async Task<Result<SessionDto>> Handle(Query request, CancellationToken cancellationToken)
@@ -30,7 +29,7 @@ public abstract class GetSession
                     "The specified session does not exist"));
             }
 
-            return new SessionDto{Id = session.Id, VenueId = session.VenueId, SessionDate = session.SessionDate, CurrentCapacity = session.CurrentCapacity};
+            return new SessionDto { Id = session.Id, VenueId = session.VenueId, SessionDate = session.SessionDate, CurrentCapacity = session.CurrentCapacity };
         }
     }
 }

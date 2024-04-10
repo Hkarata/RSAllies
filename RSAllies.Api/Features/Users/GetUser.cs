@@ -22,7 +22,7 @@ namespace RSAllies.Api.Features.Users
                 var user = await context.Users
                     .AsNoTracking()
                     .Where(u => u.Id == request.Id)
-                    .Select(u => new UserDTO { Id = u.Id, FirstName = u.FirstName, LastName = u.LastName, Email = u.Email, Phone = u.Phone})
+                    .Select(u => new UserDTO { Id = u.Id, FirstName = u.FirstName, LastName = u.LastName, Email = u.Email, Phone = u.Phone })
                     .SingleOrDefaultAsync(cancellationToken);
 
                 return user ?? Result.Failure<UserDTO>(new Error("GetUser.NonexistentUser", "The specified user does not exist"));

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 using RSAllies.Client;
-using RSAllies.Client.Pages;
 using RSAllies.Components;
 using RSAllies.Components.Account;
 using RSAllies.Data;

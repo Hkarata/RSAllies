@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RSAllies.Api.Contracts;
 using RSAllies.Api.Data;
-using RSAllies.Api.Entities;
 using RSAllies.Api.HelperTypes;
 
 namespace RSAllies.Api.Features.Sessions;
@@ -18,7 +17,7 @@ public abstract class EditSession
         public DateTime SessionDate { get; set; }
         public int CurrentCapacity { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
@@ -29,7 +28,7 @@ public abstract class EditSession
 
             if (session is null)
             {
-                return Result.Failure<Guid>(new Error("EditSession.Non-ExistentSession","The specified session does not exist"));
+                return Result.Failure<Guid>(new Error("EditSession.Non-ExistentSession", "The specified session does not exist"));
             }
 
             var venue = await context.Venues

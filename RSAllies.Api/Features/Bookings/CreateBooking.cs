@@ -18,7 +18,7 @@ public abstract class CreateBooking
         public DateTime BookingDate { get; set; }
         public string Status { get; set; } = string.Empty;
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
@@ -32,7 +32,7 @@ public abstract class CreateBooking
             {
                 return Result.Failure<Guid>(new Error("CreateBooking.SessionFull", "The Selected session is full"));
             }
-            
+
             var booking = new Booking
             {
                 Id = Guid.NewGuid(),

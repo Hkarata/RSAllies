@@ -13,7 +13,7 @@ public abstract class GetUserBookings
     {
         public Guid Id { get; init; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<BookingDto>>>
     {
         public async Task<Result<List<BookingDto>>> Handle(Query request, CancellationToken cancellationToken)

@@ -12,7 +12,7 @@ public abstract class DeleteVenue
     {
         public Guid Id { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
@@ -24,7 +24,7 @@ public abstract class DeleteVenue
             if (venue == null)
                 return Result.Failure<Guid>(
                     new Error("GetVenue.Non-existentVenue", "The specified venue does not exist"));
-            
+
             if (venue.IsDeleted)
             {
                 return Result.Failure<Guid>(
@@ -32,7 +32,7 @@ public abstract class DeleteVenue
             }
 
             venue.IsDeleted = true;
-            
+
             await context.SaveChangesAsync(cancellationToken);
 
             return venue.Id;

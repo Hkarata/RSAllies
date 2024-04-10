@@ -12,7 +12,7 @@ public abstract class DeleteUser
     {
         public Guid Id { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Query request, CancellationToken cancellationToken)
