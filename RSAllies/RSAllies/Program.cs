@@ -46,6 +46,8 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 var app = builder.Build();
 
+app.MapDefaultEndpoints();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
