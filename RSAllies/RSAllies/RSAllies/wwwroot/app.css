@@ -26,7 +26,7 @@ body {
 }
 
 .content {
-    width:100%;
+    width: 100%;
     align-self: stretch !important;
 }
 
@@ -190,4 +190,5 @@ code {
 
 body::-webkit-scrollbar {
     display: none;
+    width: 0;
 }

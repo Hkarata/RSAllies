@@ -4,6 +4,7 @@
     background-color: white;
     padding: 8px;
     scrollbar-width: none;
+    overflow: hidden;
 }
 
     .container::-webkit-scrollbar {
