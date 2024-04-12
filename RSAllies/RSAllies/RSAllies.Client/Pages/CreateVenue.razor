@@ -1,0 +1,64 @@
+﻿@page "/venues/create-venue"
+
+@using System.ComponentModel.DataAnnotations
+
+<div class="container">
+    <h3>CreateVenue</h3>
+
+    <div class="div1">
+        <FluentCard Width="400px">
+            <EditForm Model="Input" FormName="CreateVenue" OnValidSubmit="Submit">
+                <DataAnnotationsValidator />
+                <FluentTextField @bind-Value="Input.Name" Label="Name" Style="width:100%;font-family:Bahnschrift" />
+                <FluentValidationMessage For="@(() => Input.Name)" />
+                <br /><br />
+                <FluentTextField @bind-Value="Input.Address" Label="Address" Style="width:100%;font-family:Bahnschrift" />
+                <FluentValidationMessage For="@(() => Input.Address)" />
+                <br /><br />
+                <FluentNumberField @bind-Value="Input.Capacity" Label="Capacity" Style="width:100%;font-family:Bahnschrift" />
+                <FluentValidationMessage For="@(() => Input.Capacity)" />
+                <br /> <br />
+                <FluentButton BackgroundColor="#ee3026" Type="ButtonType.Submit" Style="width:100%;font-family:Bahnschrift;color:white">Create</FluentButton>
+            </EditForm>
+        </FluentCard>
+    </div>
+
+
+</div>
+
+@code {
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new InputModel();
+
+    private sealed class InputModel
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        public string Address { get; set; } = string.Empty;
+
+        [Required]
+        public int Capacity { get; set; }
+    }
+
+    void Submit()
+    {
+        Console.WriteLine("Submit");
+    }
+}
+
+<style>
+    .container {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        padding: 8px;
+    }
+    .div1{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
