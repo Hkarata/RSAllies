@@ -1,0 +1,97 @@
+﻿@page "/venues/venue/{Id:guid}"
+
+@using RSAllies.Client.Contracts
+
+@inject NavigationManager NavManager
+@inject ApiClient ApiClient
+
+<PageTitle>Venue - @Name</PageTitle>
+
+
+<div class="card">
+    <div>
+        <p style="font-family:FesterHeavy;font-size:30px;display:flex;flex-direction:row;gap:10px;">
+            <FluentIcon Value="@(new Icons.Regular.Size28.ConferenceRoom())" />
+            @Name
+        </p>
+        <p style="font-family:FesterSemiBold;font-size:20px;display:flex;flex-direction:row;gap:10px;">
+            <FluentIcon Value="@(new Icons.Regular.Size20.LocationArrow())" />
+            @Address
+        </p>
+        <p style="font-family:FesterSemiBold;font-size:20px;display:flex;flex-direction:row;gap:10px;">
+            <FluentIcon Value="@(new Icons.Regular.Size20.NumberSymbolSquare())" />
+            Capacity: @Capacity
+        </p>
+        <p class="explanation">Each venue is equipped with computers, although testees have the option to bring their own devices. Additionally, multiple sessions are available throughout the day.</p>
+    </div>
+    <img src="/Images/examcenter.jpg" height="300" alt="" style="border-radius: 10px;flex-basis:50%" />
+</div>
+
+<br />
+<br />
+<div class="second-div">
+    <p>Sessions</p>
+    <FluentNavLink Href="#">Add Session</FluentNavLink>
+</div>
+
+
+@if (_sessions is  null)
+{
+    <p>No sessions available</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Available Seats</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var session in _sessions)
+            {
+                <tr>
+                    <td>@session.SessionDate.Date.ToString("dd/MM/yyyy")</td>
+                    <td>@session.SessionDate.TimeOfDay.ToString("hh\\:mm")</td>
+                    <td>@session.CurrentCapacity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    [Parameter]
+    public string Name { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Address { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Capacity { get; set; } = string.Empty;
+
+    List<SessionDto> _sessions = [];
+
+
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(NavManager.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+        Name = query["name"]!;
+        Address = query["address"]!;
+        Capacity = query["capacity"]!;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var sessions = await ApiClient.GetVenueSessionAsync(Id);
+        _sessions = sessions?.Value!;
+    }
+
+}

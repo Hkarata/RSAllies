@@ -1,9 +1,11 @@
 ﻿@page "/venues"
+@rendermode InteractiveAuto
 @attribute [StreamRendering]
 
 @using RSAllies.Client.Contracts
 
 @inject ApiClient ApiClient
+@inject NavigationManager NavigationManager
 
 <PageTitle>Venues</PageTitle>
 
@@ -24,7 +26,7 @@
 
             @foreach (var venue in _venues!)
             {
-                <FluentGridItem xs="4">
+                <FluentGridItem xs="4" @onclick="@(() => NavigationManager.NavigateTo($"/venues/venue/{venue.Id}?name={venue.Name}&address={venue.Address}&capacity={venue.Capacity}"))">
                     <FluentCard Style="padding: 8px">
                         <img src="/Images/bg3.jpg" style="width:100%;border-radius:8px;" />
                         <p style="font-family:Bahnschrift">@venue.Name</p>
