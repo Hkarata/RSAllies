@@ -1,13 +1,28 @@
 ﻿@page "/venues/create-venue"
+@rendermode InteractiveServer
 
 @using System.ComponentModel.DataAnnotations
+@using RSAllies.Client.Contracts
+@using RSAllies.Client.HelperTypes
+
+@inject ApiClient ApiClient
+@inject IDialogService DialogService
+
+<!-- 
+This is the CreateVenue page. It contains a form for creating a new venue.
+The form includes fields for the venue's name, address, and capacity.
+-->
 
 <div class="container">
     <h3>CreateVenue</h3>
 
     <div class="div1">
         <FluentCard Width="400px">
-            <EditForm Model="Input" FormName="CreateVenue" OnValidSubmit="Submit">
+            <!-- 
+            This is the form for creating a new venue. 
+            It uses data annotations for validation and binds to an InputModel instance.
+            -->
+            <EditForm Model="Input" method="post" FormName="CreateVenue" OnValidSubmit="Submit">
                 <DataAnnotationsValidator />
                 <FluentTextField @bind-Value="Input.Name" Label="Name" Style="width:100%;font-family:Bahnschrift" />
                 <FluentValidationMessage For="@(() => Input.Name)" />
@@ -27,9 +42,9 @@
 </div>
 
 @code {
-
+    // This is the model for the form. It includes properties for the venue's name, address, and capacity.
     [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new InputModel();
+    private InputModel Input { get; set; } = new ();
 
     private sealed class InputModel
     {
@@ -43,9 +58,30 @@
         public int Capacity { get; set; }
     }
 
-    void Submit()
+    // This method is called when the form is submitted.
+    async void Submit()
     {
-        Console.WriteLine("Submit");
+        var venue = new CreateVenueDto
+        {
+            Name = Input.Name,
+            Address = Input.Address,
+            Capacity = Input.Capacity
+        };
+
+        // Call the API to create the venue.
+        var response = await ApiClient.CreateVenueAsync(venue);
+
+        if (response!.IsSuccess)
+        {
+            // If the API call is successful, show a success message.
+            DialogService.ShowSuccess("Venue created successfully.");
+        }
+        else
+        {
+            // If the API call is not successful, show an error message.
+            DialogService.ShowError("Failed to create venue.", "Client_Error");
+        }
+
     }
 }
 

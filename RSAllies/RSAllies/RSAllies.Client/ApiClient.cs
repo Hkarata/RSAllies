@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.FluentUI.AspNetCore.Components;
+using Newtonsoft.Json;
 using RSAllies.Client.Contracts;
 using RSAllies.Client.HelperTypes;
+using System.Net.Http.Json;
 
 namespace RSAllies.Client
 {
-    public class ApiClient(HttpClient httpClient)
+    public class ApiClient(HttpClient httpClient, IDialogService dialogService)
     {
         public async Task<Result<List<VenueDto>?>?> GetVenuesAsync()
         {
@@ -34,6 +36,23 @@ namespace RSAllies.Client
             else
             {
                 // Handle error
+                return null;
+            }
+        }
+
+        public async Task<Result<Guid>?> CreateVenueAsync(CreateVenueDto venue)
+        {
+            var response = await httpClient.PostAsJsonAsync<CreateVenueDto>("/api/venues", venue);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<Result<Guid>>(content)!;
+                return result;
+            }
+            else
+            {
+                // Handle error
+                dialogService.ShowError("Failed to create venue", "Api_Error");
                 return null;
             }
         }

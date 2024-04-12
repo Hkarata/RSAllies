@@ -10,3 +10,11 @@
     .container::-webkit-scrollbar {
         display: none;
     }
+
+.div1{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items:center;
+    border: 10px;
+}

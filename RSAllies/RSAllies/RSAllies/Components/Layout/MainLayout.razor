@@ -12,9 +12,11 @@
         </AuthorizeView>
         <FluentBodyContent Class="body-content" Style="font-family:Bahnschrift;">
             <div class="content" style="font-family:Bahnschrift;">
+                <FluentMessageBarProvider Section="MESSAGES_TOP" />
                 @Body
             </div>
         </FluentBodyContent>
+        <FluentDialogProvider @rendermode="InteractiveServer"/>
     </FluentStack>
     <FluentFooter Style="font-family:Bahnschrift">
         <div class="link1">

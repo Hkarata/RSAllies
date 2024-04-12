@@ -9,26 +9,34 @@
 
 <div class="container">
     
-    <div>
+    <div class="div1">
         <h3>Venues</h3>
+        <FluentAnchor Href="/venues/create-venue">Create Venue</FluentAnchor>
     </div>
 
+    @if(_venues!.Count == 0)
+    {
+        <FluentProgressRing />
+    }
+    else
+    {
+        <FluentGrid>
 
-    <FluentGrid>
+            @foreach (var venue in _venues!)
+            {
+                <FluentGridItem xs="4">
+                    <FluentCard Style="padding: 8px">
+                        <img src="/Images/bg3.jpg" style="width:100%;border-radius:8px;" />
+                        <p style="font-family:Bahnschrift">@venue.Name</p>
+                        <p style="font-family:Bahnschrift">@venue.Address</p>
+                        <p style="font-family:Bahnschrift">@venue.Capacity seats</p>
+                    </FluentCard>
+                </FluentGridItem>
+            }
 
-        @foreach (var venue in _venues!)
-        {
-            <FluentGridItem xs="4">
-                <FluentCard Style="padding: 8px">
-                    <img src="/Images/bg3.jpg"  style="width:100%;border-radius:8px;"/>
-                    <p style="font-family:Bahnschrift">@venue.Name</p>
-                    <p style="font-family:Bahnschrift">@venue.Address</p>
-                    <p style="font-family:Bahnschrift">@venue.Capacity seats</p>
-                </FluentCard>
-            </FluentGridItem>
-        }
+        </FluentGrid>
+    }
 
-    </FluentGrid>
 </div>
 
 @code {
