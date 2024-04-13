@@ -10,7 +10,7 @@ namespace RSAllies.Api.Features.Users;
 
 public abstract class CheckUser
 {
-    public class Query : IRequest<Result<bool>>
+    public class Query : IRequest<Result<Guid>>
     {
         public Guid Id { get; init; }
         public string FirstName { get; init; } = string.Empty;
@@ -19,9 +19,9 @@ public abstract class CheckUser
         public string Phone { get; init; } = string.Empty;
     }
 
-    internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<bool>>
+    internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<Guid>>
     {
-        public async Task<Result<bool>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(Query request, CancellationToken cancellationToken)
         {
             var user = await context.Users
                 .AsNoTracking()
@@ -32,10 +32,10 @@ public abstract class CheckUser
 
 
             if (user is null)
-                return Result.Failure<bool>(new Error("CheckUser.NonExistentUser",
+                return Result.Failure<Guid>(new Error("CheckUser.NonExistentUser",
                     "No user exist with the specified data"));
 
-            return true;
+            return user.Id;
         }
     }
 }

@@ -1,2 +1,15 @@
-﻿body {
+﻿<style >
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    padding: 8px;
 }
+
+.div1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+</style >
