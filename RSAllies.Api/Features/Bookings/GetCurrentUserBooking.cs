@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Carter;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RSAllies.Api.Contracts;
 using RSAllies.Api.Data;
@@ -6,7 +7,7 @@ using RSAllies.Api.HelperTypes;
 
 namespace RSAllies.Api.Features.Bookings;
 
-public abstract class GetCurrentBooking
+public abstract class GetCurrentUserBooking
 {
     public class Query: IRequest<Result<BookingDto>>
     {
@@ -40,5 +41,18 @@ public abstract class GetCurrentBooking
             
             return booking;
         }
+    }
+}
+
+public class GetCurrentUserBookingEndPoint : ICarterModule
+{
+    public void AddRoutes(IEndpointRouteBuilder app)
+    {
+        app.MapGet("/api/bookings/user/{id:guid}/current-booking", async (Guid id, ISender sender) =>
+        {
+            var request = new GetCurrentUserBooking.Query { Id = id };
+            var result = await sender.Send(request);
+            return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result);
+        });
     }
 }
