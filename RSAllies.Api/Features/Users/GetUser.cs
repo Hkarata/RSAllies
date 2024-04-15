@@ -38,7 +38,7 @@ namespace RSAllies.Api.Features.Users
             {
                 var result = await sender.Send(new GetUser.Query { Id = id });
 
-                return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result.Value);
+                return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result);
             });
         }
     }

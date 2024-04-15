@@ -17,6 +17,7 @@ namespace RSAllies.Api.Features.Users
             public string LastName { get; set; } = string.Empty;
             public string? Email { get; set; } = string.Empty;
             public string Phone { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
         }
 
         internal sealed class Handler(AppDbContext _context) : IRequestHandler<Command, Result<UserDTO>>
@@ -36,6 +37,7 @@ namespace RSAllies.Api.Features.Users
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
+                    Password = request.Password,
                     Phone = request.Phone,
                     IsDeleted = false,
                     CreatedAt = DateTime.UtcNow
