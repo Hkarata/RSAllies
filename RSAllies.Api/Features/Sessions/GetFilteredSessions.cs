@@ -28,6 +28,10 @@ public abstract class GetFilteredSessions
                     Id = s.Id,
                     VenueId = s.Venue.Id,
                     VenueName = s.Venue.Name,
+                    SessionDate = s.SessionDate,
+                    VenueCapacity = s.Venue.Capacity,
+                    CurrentCapacity = s.CurrentCapacity,
+                    IsFull = s.CurrentCapacity >= s.Venue.Capacity
                 }).ToListAsync(cancellationToken);
 
             return sessions.Count == 0 ? Result.Failure<List<FilteredSessionDto>>(new Error("GetFilteredSessions", "No sessions available")) : sessions;
