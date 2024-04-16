@@ -43,7 +43,7 @@ public class GetFilteredSessionsEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/sessions/filter/region/{region}/date{date:datetime}",
+        app.MapGet("/api/sessions/filter/region/{region}/date/{date:datetime}",
             async (string region, DateTime date, ISender sender) =>
             {
                 var request = new GetFilteredSessions.Query { Address = region, Date = date };
