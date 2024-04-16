@@ -7,7 +7,7 @@ using RSAllies.Api.HelperTypes;
 
 namespace RSAllies.Api.Features.Sessions;
 
-public abstract class GetSessionFiltered
+public abstract class GetFilteredSessions
 {
     public class Query : IRequest<Result<List<FilteredSessionDto>>>
     {
@@ -39,9 +39,12 @@ public class GetFilteredSessionsEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/sessions/filter/region/{region}/date{date:datetime}", async (string region, DateTime date, ISender sender) =>
-        {
-            var request = new 
-        })
+        app.MapGet("/api/sessions/filter/region/{region}/date{date:datetime}",
+            async (string region, DateTime date, ISender sender) =>
+            {
+                var request = new GetFilteredSessions.Query { Address = region, Date = date };
+                var result = await sender.Send(request);
+                return result.IsFailure ? Results.Ok(result.Error) : Results.Ok(result);
+            });
     }
 }
