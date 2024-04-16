@@ -58,7 +58,7 @@ public class CreateSessionEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/sessions", async (SessionDto session, ISender sender) =>
+        app.MapPost("api/session", async (SessionDto session, ISender sender) =>
         {
             var request = session.Adapt<CreateSession.Command>();
             var result = await sender.Send(request);
