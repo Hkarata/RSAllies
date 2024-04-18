@@ -9,7 +9,7 @@ namespace RSAllies.Api.Features.Bookings;
 
 public abstract class GetCurrentUserBooking
 {
-    public class Query: IRequest<Result<BookingDto>>
+    public class Query : IRequest<Result<BookingDto>>
     {
         public Guid Id { get; set; }
     }
@@ -38,7 +38,7 @@ public abstract class GetCurrentUserBooking
                 return Result.Failure<BookingDto>(new Error("GetCurrentBooking.NoBooking",
                     "The specified user has no current booking"));
             }
-            
+
             return booking;
         }
     }

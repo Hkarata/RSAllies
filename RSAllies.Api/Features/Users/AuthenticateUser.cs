@@ -15,7 +15,7 @@ public abstract class AuthenticateUser
         public string Phone { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<UserDTO>>
     {
         public async Task<Result<UserDTO>> Handle(Command request, CancellationToken cancellationToken)

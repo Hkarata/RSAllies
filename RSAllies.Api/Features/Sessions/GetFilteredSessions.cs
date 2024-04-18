@@ -14,7 +14,7 @@ public abstract class GetFilteredSessions
         public string Address { get; set; } = string.Empty;
         public DateTime Date { get; set; }
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<FilteredSessionDto>>>
     {
         public async Task<Result<List<FilteredSessionDto>>> Handle(Query request, CancellationToken cancellationToken)

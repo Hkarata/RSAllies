@@ -17,7 +17,7 @@ namespace RSAllies.Api.Entities
 
         [MaxLength(10)]
         public string Phone { get; set; } = string.Empty;
-        
+
         [MaxLength(12)]
         public string Password { get; set; } = String.Empty;
         public DateTime CreatedAt { get; set; }
