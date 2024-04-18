@@ -22,7 +22,7 @@ public abstract class GetFilteredSessions
             var sessions = await context.Sessions
                 .AsNoTracking()
                 .Include(s => s.Venue)
-                .Where(s => s.Venue.Address == request.Address && s.SessionDate >= request.Date)
+                .Where(s => s.Venue.Address == request.Address && s.SessionDate >= request.Date && !s.IsDeleted)
                 .Select(s => new FilteredSessionDto
                 {
                     Id = s.Id,

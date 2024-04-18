@@ -22,6 +22,23 @@ namespace RSAllies.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("RSAllies.Api.Entities.Answer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ChoiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Answers");
+                });
+
             modelBuilder.Entity("RSAllies.Api.Entities.Booking", b =>
                 {
                     b.Property<Guid>("Id")
@@ -58,6 +75,63 @@ namespace RSAllies.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("RSAllies.Api.Entities.Choice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ChoiceText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Choices");
+                });
+
+            modelBuilder.Entity("RSAllies.Api.Entities.Question", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("QuestionText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("RSAllies.Api.Entities.Score", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ScoreValue")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Scores");
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Session", b =>
@@ -142,6 +216,28 @@ namespace RSAllies.Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("RSAllies.Api.Entities.UserResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ChoiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserResponses");
+                });
+
             modelBuilder.Entity("RSAllies.Api.Entities.Venue", b =>
                 {
                     b.Property<Guid>("Id")
@@ -224,6 +320,28 @@ namespace RSAllies.Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RSAllies.Api.Entities.Choice", b =>
+                {
+                    b.HasOne("RSAllies.Api.Entities.Question", "Question")
+                        .WithMany("Choices")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("RSAllies.Api.Entities.Score", b =>
+                {
+                    b.HasOne("RSAllies.Api.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RSAllies.Api.Entities.Session", b =>
                 {
                     b.HasOne("RSAllies.Api.Entities.Venue", "Venue")
@@ -235,6 +353,17 @@ namespace RSAllies.Api.Migrations
                     b.Navigation("Venue");
                 });
 
+            modelBuilder.Entity("RSAllies.Api.Entities.UserResponse", b =>
+                {
+                    b.HasOne("RSAllies.Api.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RSAllies.Api.Entities.VenueAvailability", b =>
                 {
                     b.HasOne("RSAllies.Api.Entities.Venue", "Venue")
@@ -244,6 +373,11 @@ namespace RSAllies.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("RSAllies.Api.Entities.Question", b =>
+                {
+                    b.Navigation("Choices");
                 });
 
             modelBuilder.Entity("RSAllies.Api.Entities.Venue", b =>

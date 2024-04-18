@@ -20,7 +20,7 @@ public abstract class GetUserBookings
         {
             var bookings = await context.Bookings
                 .AsNoTracking()
-                .Where(b => b.UserId == request.Id)
+                .Where(b => b.UserId == request.Id && !b.IsDeleted)
                 .Include(b => b.Session)
                 .ThenInclude(b => b.Venue)
                 .Select(b => new BookingDto

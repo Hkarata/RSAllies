@@ -4,5 +4,5 @@ public class QuestionDto
 {
     public Guid Id { get; set; }
     public string QuestionText { get; set; } = string.Empty;
-    public List<Choice>? Choices { get; set; }
+    public List<ChoiceDto>? Choices { get; set; }
 }
