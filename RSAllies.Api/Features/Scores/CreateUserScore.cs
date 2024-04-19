@@ -9,14 +9,14 @@ namespace RSAllies.Api.Features.Scores;
 
 public abstract class CreateUserScore
 {
-    
+
     public class Command : IRequest<Result<bool>>
     {
         public Guid UserId { get; set; }
         public int ScoreValue { get; set; }
     }
-    
-    
+
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Command, Result<bool>>
     {
         public async Task<Result<bool>> Handle(Command request, CancellationToken cancellationToken)
@@ -25,7 +25,8 @@ public abstract class CreateUserScore
             {
                 Id = Guid.NewGuid(),
                 UserId = request.UserId,
-                ScoreValue = request.ScoreValue
+                ScoreValue = request.ScoreValue,
+                CreatedAt = DateTime.UtcNow,
             };
 
             context.Scores.Add(userScore);
@@ -36,8 +37,8 @@ public abstract class CreateUserScore
 
         }
     }
-    
-    
+
+
 }
 
 

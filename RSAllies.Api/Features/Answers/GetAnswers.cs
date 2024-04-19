@@ -11,9 +11,9 @@ public abstract class GetAnswers
 {
     public class Query : IRequest<Result<List<AnswerDto>>>
     {
-        
+
     }
-    
+
     internal sealed class Handler(AppDbContext context) : IRequestHandler<Query, Result<List<AnswerDto>>>
     {
         public async Task<Result<List<AnswerDto>>> Handle(Query request, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ public abstract class GetAnswers
             return answers.Count != 0 ? answers : Result.Failure<List<AnswerDto>>(new Error("GetAnswers", "There are no answers"));
         }
     }
-    
+
 }
 
 public class GetAnswersEndPoint : ICarterModule
