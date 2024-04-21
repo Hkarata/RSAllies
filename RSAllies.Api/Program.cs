@@ -29,15 +29,15 @@ builder.Services.AddMediatR(config =>
 
 builder.Services.AddCarter();
 
-//builder.Services.AddCors(options =>
-//{
-//	options.AddDefaultPolicy(builder =>
-//	{
-//		builder.AllowAnyOrigin()
-//			.AllowAnyMethod()
-//			.AllowAnyHeader();
-//	});
-//});
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(builder =>
+	{
+		builder.AllowAnyOrigin()
+			.AllowAnyMethod()
+			.AllowAnyHeader();
+	});
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -45,7 +45,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//app.UseCors();
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
