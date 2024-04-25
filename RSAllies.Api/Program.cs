@@ -15,6 +15,9 @@ builder.AddServiceDefaults();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnection")));
 
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("AppDbConnection")));
+
 builder.Logging.EnableRedaction();
 
 builder.Services.AddRedaction(redact =>
@@ -43,6 +46,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 app.UseCors();
@@ -57,5 +62,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapCarter();
+
+app.MapHealthChecks("/health");
 
 app.Run();
